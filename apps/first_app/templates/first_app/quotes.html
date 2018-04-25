@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Successfully in!</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'first_app/styles.css' %}">
+</head>
+<body>
+    <h1> Welcome, {{request.session.fullname}}!</h1>
+    <p><a href="/" name='logout'>Log out</a> </p>
+    {% if quotes %}
+        <div class = "left">
+            <h2> Quotable Quotes </h2>
+                {% for quote in notliked %}
+                
+                    <h3>{{quote.quotedby}} : {{ quote.message }}</h3>
+                    <p>Posted by: <a href="/users/{{quote.added_by.id}}">{{ quote.added_by.fullname }}</p>
+                    <a href="/add/{{quote.id}}"> Add to My List</a>
+                    
+                {% endfor %}
+
+                {% for a in myquotes %}
+                     {% if a.added_by.id == request.session.id %}
+                        <h3>{{a.quotedby}} : {{ a.message }}</h3>
+                        <p>Posted by: <a href="/users/{{a.added_by.id}}">{{ a.added_by.fullname }}</p>
+                        <a href="/add/{{a.id}}"> Add to My List</a>
+                    {% endif %}
+                {% endfor %}
+
+        </div>
+
+        <div class = "right">
+            <h2>Your Favorites</h2>
+            {% for x in liked %}
+                <h3>{{x.quotedby}} :{{ x.message }}</h3>
+                <p>Posted by: <a href="/users/{{x.added_by.id}}">{{ x.added_by.fullname }}</a></p>
+                <a href="/remove/{{x.id}}"> Remove from my list</a>
+            {% endfor %}
+
+    {% endif %}
+
+
+        <form action="/create" method ="POST">
+            {% csrf_token %}
+            {% if messages %}
+                {% for message in messages%}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <h2>Contribute a Quote</h2> 
+            <p>Quoted by: <input type="text" name="quotedby"></p>
+            <p>message:</p>
+            <textarea name="message" rows="3"></textarea>
+            <p><input type="submit" name="add" value = "Submit"></p>
+        </form>
+    </div>
+    
+</body>
+</html>

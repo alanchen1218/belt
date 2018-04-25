@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quotes</title>
+</head>
+    <body>
+        <p><a href="/quotes" name='quotes'>Home</a> </p>
+        <p><a href="/" name='logout'>Log out</a> </p>
+        <h3>Posted by {{user.fullname}}</h3>
+        <h5>count: {{total}}</h5>
+        {% for quote in quotes %}
+            <p>{{quote.quotedby}}: {{quote.message}}</p>
+        {% endfor %}
+    </body>
+</html>

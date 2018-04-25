@@ -1,0 +1,11 @@
+h1{
+    color: red;
+}
+.left,
+.right{
+    display: inline-block;
+    margin-left: 30px
+}
+.left{
+    vertical-align: top
+}
